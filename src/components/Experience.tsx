@@ -1,102 +1,132 @@
 import AnimatedSection from "./AnimatedSection";
+import SectionHeader from "./SectionHeader";
 
 interface Entry {
-  date: string;
-  role: string;
   org: string;
+  role: string;
+  date: string;
+  topic?: string;
   bullets: string[];
+  tags: string[];
 }
 
-const experiences: Entry[] = [
+const entries: Entry[] = [
   {
-    date: "Sep 2025 – Present",
-    role: "Research Intern (UPIR)",
     org: "LINCS LAB, Polytechnique Montréal",
+    role: "Research Intern (UPIR)",
+    date: "Sep 2025 – Present",
+    topic: "Fine-tuning LLMs for Vehicular Network Misbehavior Detection",
     bullets: [
-      "Detection pipeline with Mistral-7B + LLM2Vec for vehicular network threat analysis",
-      "Agentic AI layer (GPT-20B) generating explainable threat intelligence reports",
-      "Fixed data leakage via Stratified GroupKFold cross-validation by vehicleID",
+      "Detection pipeline: Mistral-7B + LLM2Vec for BSM sequence encoding",
+      "Agentic AI layer (GPT-20B) → explainable threat intelligence reports",
+      "Stratified GroupKFold cross-validation → resolved data leakage issues",
     ],
+    tags: ["LLM", "Security", "Edge AI", "Research"],
   },
   {
-    date: "Jun 2025 – Present",
+    org: "CHUM – Centre Hospitalier de l'Université de Montréal",
     role: "Research Intern",
-    org: "CHUM – Université de Montréal Hospital",
+    date: "Jun 2025 – Present",
+    topic: "AI Prediction of Oncotype DX Scores (Breast Cancer)",
     bullets: [
-      "ML models (Random Forest, SVM, Neural Networks) to predict Oncotype DX scores",
-      "Collaborated with oncologists to bridge clinical data and AI-driven insights",
+      "Models: Random Forest · SVM · Neural Networks",
+      "Collaborated directly with clinicians on feature interpretation",
     ],
+    tags: ["Health AI", "ML", "Clinical Research"],
   },
   {
-    date: "Aug 2025 – Present (Intern: May–Aug 2025)",
-    role: "Junior Software Developer",
     org: "Axians Canada",
+    role: "Junior Software Developer",
+    date: "Aug 2025 – Present (Software Engineer Intern · May–Aug 2025)",
     bullets: [
-      "Full-stack apps with NestJS + Angular",
-      "Azure services: App Service, Entra ID, SQL, Blob, VM, IAM",
-      "CI/CD with GitHub Actions; Agile methodology",
+      "Full-stack: NestJS + Angular · Azure (App Service, Entra ID, SQL, Blob, VM)",
+      "CI/CD pipelines via GitHub Actions · Agile/DevOps methodology",
     ],
+    tags: ["Full-Stack", "Cloud", "DevOps"],
   },
   {
-    date: "Dec 2025 – Present",
-    role: "Co-Founder",
     org: "PharmaFlow",
-    bullets: [
-      "Building a health-tech startup focused on pharmacy workflow optimization",
-    ],
+    role: "Co-Founder",
+    date: "Dec 2025 – Present",
+    bullets: ["Health-tech startup: optimizing pharmacy workflow systems"],
+    tags: ["Startup", "Health-Tech", "Entrepreneurship"],
   },
   {
-    date: "Dec 2025 – Present",
-    role: "VP Formation",
     org: "Google Developer Group – Polytechnique Montréal",
-    bullets: [
-      "Lead technical workshops on AI, Cloud, DevOps, and Mobile for engineering students",
-      "Manage the club's technical roadmap",
-    ],
-  },
-  {
+    role: "VP Formation",
     date: "Dec 2025 – Present",
-    role: "Teaching Assistant (LOG2420)",
-    org: "Polytechnique Montréal",
     bullets: [
-      "User-Centered Design: mentored students through the full design lifecycle",
-      "Supervised Figma prototyping labs + heuristic usability evaluations",
+      "Technical workshops: AI · Cloud · DevOps · Mobile",
+      "Manage club technical roadmap + coordinate with executive team",
     ],
+    tags: ["Leadership", "AI Education"],
   },
   {
-    date: "May 2025 – Present",
-    role: "AI Educator",
-    org: "PolyAI",
+    org: "Polytechnique Montréal",
+    role: "Teaching Assistant, LOG2420",
+    date: "Dec 2025 – Present",
     bullets: [
-      "Design and deliver interactive AI educational content",
-      "Support students through structured, Agile-planned learning programs",
+      "User-Centered Design · Figma prototyping labs",
+      "Heuristic usability evaluations + assignment grading",
     ],
+    tags: ["UX", "Pedagogy"],
+  },
+  {
+    org: "PolyAI",
+    role: "AI Educator",
+    date: "May 2025 – Present",
+    bullets: ["Interactive AI educational content · Agile-structured curriculum"],
+    tags: ["AI", "Education"],
+  },
+  {
+    org: "Propolys Medtech Program",
+    role: "Entrepreneur",
+    date: "Dec 2025 – Present",
+    bullets: ["Intensive program: medical technology concept → viable business"],
+    tags: ["MedTech", "Entrepreneurship"],
   },
 ];
 
 const Experience = () => (
-  <section id="work" className="py-20 md:py-28">
-    <div className="container mx-auto px-6 md:px-12 lg:px-24">
+  <section id="experience" className="py-20 md:py-28">
+    <div className="container mx-auto px-6 md:px-12">
       <AnimatedSection>
-        <h2 className="text-3xl md:text-4xl font-serif-display mb-16">Experience</h2>
+        <SectionHeader number="1" title="Experience" />
       </AnimatedSection>
-      <div className="relative border-l border-border pl-8 md:pl-12 space-y-14">
-        {experiences.map((exp, i) => (
-          <AnimatedSection key={i} delay={i * 0.05}>
-            <div className="absolute -left-[5px] w-[9px] h-[9px] rounded-full bg-primary" style={{ marginTop: "6px" }} />
-            <p className="text-xs text-muted-foreground uppercase tracking-widest font-body mb-1">
-              {exp.date}
-            </p>
-            <h3 className="text-lg font-body font-medium text-foreground">
-              {exp.role} <span className="text-muted-foreground font-normal">· {exp.org}</span>
-            </h3>
-            <ul className="mt-3 space-y-1.5">
-              {exp.bullets.map((b, j) => (
-                <li key={j} className="text-sm text-muted-foreground font-body leading-relaxed">
-                  · {b}
-                </li>
-              ))}
-            </ul>
+
+      <div className="space-y-10">
+        {entries.map((e, i) => (
+          <AnimatedSection key={i} delay={i * 0.04}>
+            <div className="group">
+              <div className="flex items-start gap-3">
+                <span className="citation-number text-sm mt-0.5">[{i + 1}]</span>
+                <div className="flex-1">
+                  <p className="font-academic text-lg text-foreground font-medium">
+                    {e.org}
+                  </p>
+                  <p className="font-mono-math text-xs text-muted-foreground mt-0.5">
+                    {e.role} · {e.date}
+                  </p>
+                  {e.topic && (
+                    <p className="font-mono-math text-xs text-foreground mt-1.5">
+                      <span className="text-muted-foreground">Topic:</span> {e.topic}
+                    </p>
+                  )}
+                  <ul className="mt-2 space-y-1">
+                    {e.bullets.map((b, j) => (
+                      <li key={j} className="font-mono-math text-xs text-muted-foreground leading-relaxed">
+                        · {b}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {e.tags.map((t) => (
+                      <span key={t} className="tag-pill">[{t}]</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </AnimatedSection>
         ))}
       </div>
