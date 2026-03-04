@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,22 +10,22 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
     --card-foreground: 0 0% 5%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    --primary: 164 100% 38%;
+    --primary: 222 78% 48%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
+    --secondary: 226 100% 97%;
     --secondary-foreground: 0 0% 5%;
 
-    --muted: 0 0% 96%;
+    --muted: 226 100% 97%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 164 100% 38%;
+    --accent: 222 78% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -33,9 +33,12 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 164 100% 38%;
+    --ring: 222 78% 48%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
+
+    --surface-subtle: 226 100% 97%;
+    --math-accent: 222 78% 48%;
   }
 }
 
@@ -46,20 +49,66 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Geist', system-ui, sans-serif;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'EB Garamond', serif;
   }
 }
 
 @layer utilities {
-  .font-serif-display {
-    font-family: 'Instrument Serif', serif;
+  .font-academic {
+    font-family: 'EB Garamond', serif;
   }
 
-  .font-body {
-    font-family: 'Geist', system-ui, sans-serif;
+  .font-mono-math {
+    font-family: 'JetBrains Mono', monospace;
   }
+
+  .section-number {
+    @apply font-mono-math text-primary text-sm tracking-wider;
+  }
+
+  .section-rule {
+    @apply w-full h-px bg-border;
+  }
+
+  .tag-pill {
+    @apply inline-block text-xs font-mono-math px-2 py-0.5 rounded-sm bg-secondary text-primary;
+  }
+
+  .citation-number {
+    @apply font-mono-math text-primary font-medium;
+  }
+
+  .math-watermark {
+    @apply absolute pointer-events-none select-none;
+    opacity: 0.06;
+  }
+
+  .terminal-link {
+    @apply font-mono-math text-sm text-foreground hover:text-primary transition-colors duration-200;
+  }
+
+  .terminal-link::before {
+    content: '> ';
+    @apply text-primary;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
 }

@@ -1,41 +1,63 @@
 import AnimatedSection from "./AnimatedSection";
+import { NeuralNetworkWatermark, CoordinateGrid } from "./MathDecorations";
 import profilePhoto from "@/assets/profile-photo.jpeg";
 
 const Hero = () => (
-  <section className="min-h-[85vh] flex items-center">
-    <div className="container mx-auto px-6 md:px-12 lg:px-24">
-      <div className="grid md:grid-cols-[1fr_auto] gap-12 md:gap-20 items-center">
-        <AnimatedSection>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif-display leading-tight text-foreground">
-            Hassib Kevin Ezzedine
-          </h1>
-          <p className="mt-4 text-lg text-foreground font-body">
-            Software Engineer · AI Researcher · Co-Founder
-          </p>
-          <p className="mt-1 text-base text-muted-foreground font-body">
-            Polytechnique Montréal × Université de Montréal
-          </p>
-          <div className="mt-8 flex gap-8">
-            <a
-              href="#work"
-              className="text-sm font-body text-foreground hover:text-primary transition-colors duration-200 border-b border-transparent hover:border-primary"
-            >
-              View Work ↓
-            </a>
-            <a
-              href="/resume"
-              className="text-sm font-body text-foreground hover:text-primary transition-colors duration-200 border-b border-transparent hover:border-primary"
-            >
-              Resume ↑
-            </a>
+  <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    {/* Neural network watermark top-left */}
+    <div className="absolute top-8 left-4 md:left-8">
+      <NeuralNetworkWatermark />
+    </div>
+
+    <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="grid md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-start">
+        {/* Left — Text content */}
+        <div>
+          <AnimatedSection>
+            <p className="section-number mb-4">§ 0.1 — Hassib Kevin Ezzedine</p>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.1}>
+            <h1 className="font-academic text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] text-foreground tracking-tight">
+              Hassib Kevin<br />Ezzedine
+            </h1>
+          </AnimatedSection>
+
+          {/* Abstract box */}
+          <AnimatedSection delay={0.2}>
+            <div className="mt-8 border border-border bg-card p-5 md:p-6 max-w-xl">
+              <p className="font-mono-math text-xs leading-relaxed text-muted-foreground">
+                <span className="font-academic italic text-foreground text-sm">Abstract.</span>{" "}
+                Software Engineering student (GPA 4.0) at Polytechnique Montréal
+                & Applied Mathematics (GPA 4.3) at Université de Montréal.
+                Researcher in vehicular network security & breast cancer AI.
+                Co-founder. 2× UPIR Scholar. Operating at the intersection of
+                ML, health systems & cybersecurity.
+              </p>
+            </div>
+          </AnimatedSection>
+
+          {/* Terminal links */}
+          <AnimatedSection delay={0.3}>
+            <div className="mt-8 flex gap-8">
+              <a href="#experience" className="terminal-link">./view_work</a>
+              <a href="#contact" className="terminal-link">./resume.pdf</a>
+            </div>
+          </AnimatedSection>
+        </div>
+
+        {/* Right — Photo with coordinate grid */}
+        <AnimatedSection delay={0.25} className="relative flex justify-center md:justify-end pt-8 md:pt-16">
+          <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6">
+            <CoordinateGrid />
           </div>
-        </AnimatedSection>
-        <AnimatedSection delay={0.2} className="flex justify-center md:justify-end">
-          <img
-            src={profilePhoto}
-            alt="Hassib Kevin Ezzedine"
-            className="w-56 h-56 md:w-72 md:h-72 rounded-2xl object-cover"
-          />
+          <div className="relative border border-border p-1.5">
+            <img
+              src={profilePhoto}
+              alt="Hassib Kevin Ezzedine"
+              className="w-48 h-60 md:w-56 md:h-72 object-cover"
+            />
+          </div>
         </AnimatedSection>
       </div>
     </div>

@@ -1,22 +1,33 @@
 import AnimatedSection from "./AnimatedSection";
+import SectionHeader from "./SectionHeader";
 
 const awards = [
-  "UPIR Scholarship — Introduction to Mathematical Research · Polytechnique Montréal",
-  "UPIR Scholarship — Introduction to Machine Learning Research · Polytechnique Montréal",
+  { title: "UPIR Scholarship — Mathematical Research", org: "Polytechnique Montréal" },
+  { title: "UPIR Scholarship — Machine Learning Research", org: "Polytechnique Montréal" },
 ];
 
 const Awards = () => (
   <section className="py-20 md:py-28 border-t border-border">
-    <div className="container mx-auto px-6 md:px-12 lg:px-24">
+    <div className="container mx-auto px-6 md:px-12">
       <AnimatedSection>
-        <h2 className="text-3xl md:text-4xl font-serif-display mb-12">Awards</h2>
+        <div className="mb-10">
+          <p className="section-number mb-2">Acknowledgements</p>
+          <div className="section-rule" />
+        </div>
       </AnimatedSection>
-      <div className="flex flex-wrap gap-3">
+
+      <div className="space-y-6">
         {awards.map((a, i) => (
           <AnimatedSection key={i} delay={i * 0.1}>
-            <span className="inline-block border border-border rounded-full px-5 py-2.5 text-sm font-body text-foreground">
-              {a}
-            </span>
+            <div className="flex items-start gap-3">
+              <span className="font-mono-math text-xs text-muted-foreground whitespace-nowrap">
+                Acknowledgement {i + 1}.
+              </span>
+              <div>
+                <p className="font-academic italic text-base text-foreground">{a.title}</p>
+                <p className="font-mono-math text-xs text-muted-foreground">{a.org}</p>
+              </div>
+            </div>
           </AnimatedSection>
         ))}
       </div>

@@ -1,36 +1,39 @@
 import AnimatedSection from "./AnimatedSection";
+import SectionHeader from "./SectionHeader";
 
 const education = [
   {
-    date: "Aug 2023 – May 2027",
-    degree: "B.Eng. Software Engineering",
     school: "Polytechnique Montréal",
-    gpa: "GPA 4.0 / 4.0",
+    degree: "Bachelor of Engineering — Software Engineering",
+    date: "August 2023 → May 2027",
+    gpa: "4.0 / 4.0",
   },
   {
-    date: "Sep 2024 – Aug 2027",
-    degree: "B.Sc. Applied Mathematics (Minor)",
     school: "Université de Montréal",
-    gpa: "GPA 4.3 / 4.3",
+    degree: "Bachelor of Science — Applied Mathematics (Minor)",
+    date: "September 2024 → August 2027",
+    gpa: "4.3 / 4.3",
   },
 ];
 
 const Education = () => (
   <section className="py-20 md:py-28 border-t border-border">
-    <div className="container mx-auto px-6 md:px-12 lg:px-24">
+    <div className="container mx-auto px-6 md:px-12">
       <AnimatedSection>
-        <h2 className="text-3xl md:text-4xl font-serif-display mb-16">Education</h2>
+        <SectionHeader number="3" title="Academic Formation" />
       </AnimatedSection>
-      <div className="space-y-10">
+
+      <div className="grid md:grid-cols-2 gap-8">
         {education.map((ed, i) => (
           <AnimatedSection key={i} delay={i * 0.1}>
-            <p className="text-xs text-muted-foreground uppercase tracking-widest font-body mb-1">
-              {ed.date}
-            </p>
-            <h3 className="text-lg font-body font-medium text-foreground">
-              {ed.degree} <span className="text-muted-foreground font-normal">· {ed.school}</span>
-            </h3>
-            <p className="text-sm text-primary font-body mt-1">{ed.gpa}</p>
+            <div className="border-t border-border pt-5">
+              <p className="font-academic text-xl text-foreground">{ed.school}</p>
+              <p className="font-mono-math text-xs text-muted-foreground mt-1">{ed.degree}</p>
+              <p className="font-mono-math text-xs text-muted-foreground mt-1">{ed.date}</p>
+              <p className="font-mono-math text-xs text-foreground mt-2">
+                GPA: {ed.gpa} <span className="text-primary">✦</span> Distinction
+              </p>
+            </div>
           </AnimatedSection>
         ))}
       </div>
