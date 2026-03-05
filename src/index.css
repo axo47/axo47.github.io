@@ -100,6 +100,11 @@
     content: '> ';
     @apply text-primary;
   }
+
+  .mix-blend-difference {
+    mix-blend-mode: difference;
+    color: white;
+  }
 }
 
 /* Scrollbar styling */
@@ -115,3 +120,4 @@
   background: hsl(var(--border));
   border-radius: 3px;
 }
+

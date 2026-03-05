@@ -4,10 +4,7 @@ import profilePhoto from "@/assets/profile-photo.jpeg";
 
 const Hero = () => (
   <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-    {/* Neural network watermark top-left */}
-    <div className="absolute top-8 left-4 md:left-8">
-      <NeuralNetworkWatermark />
-    </div>
+
 
     <div className="container mx-auto px-6 md:px-12 relative z-10">
       <div className="grid md:grid-cols-[1fr_auto] gap-12 md:gap-16 items-start">

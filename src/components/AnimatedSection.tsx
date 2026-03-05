@@ -21,12 +21,12 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 18, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
   },
 };
 
@@ -39,7 +39,7 @@ const AnimatedSection = ({ children, className = "", delay = 0, stagger = false 
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         custom={delay}
-        className={className}
+        className={`mix-blend-difference ${className}`}
       >
         {children}
       </motion.div>
@@ -48,11 +48,11 @@ const AnimatedSection = ({ children, className = "", delay = 0, stagger = false 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 18, filter: "blur(4px)" }}
+      initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number], delay }}
-      className={className}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number], delay }}
+      className={`mix-blend-difference ${className}`}
     >
       {children}
     </motion.div>

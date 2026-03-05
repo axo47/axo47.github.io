@@ -1,6 +1,6 @@
 import { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ContactShadows, Float, Environment } from "@react-three/drei";
+import { Float, Environment, AdaptiveDpr, AdaptiveEvents, Preload } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,19 +11,22 @@ gsap.registerPlugin(ScrollTrigger);
 function MathManifold() {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshPhysicalMaterial>(null);
-  const wireRef = useRef<THREE.LineSegments>(null);
+  const wireRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const scrollProgress = useRef({ value: 0 });
   const { viewport } = useThree();
 
-  // Responsive scale
-  const baseScale = viewport.width < 6 ? 0.7 : 1;
+  // Responsive scale & detail
+  const isMobile = viewport.width < 6;
+  const baseScale = isMobile ? 0.7 : 1;
+  const segmentsX = isMobile ? 64 : 128;
+  const segmentsY = isMobile ? 16 : 32;
 
   // Create morphable geometry
   const { basePositions, torusPositions, icoPositions, spherePositions } = useMemo(() => {
-    const torusKnot = new THREE.TorusKnotGeometry(1, 0.35, 128, 32, 2, 3);
-    const ico = new THREE.IcosahedronGeometry(1.4, 4);
-    const sphere = new THREE.SphereGeometry(1.2, 64, 64);
+    const torusKnot = new THREE.TorusKnotGeometry(1, 0.35, segmentsX, segmentsY, 2, 3);
+    const ico = new THREE.IcosahedronGeometry(1.4, isMobile ? 2 : 4);
+    const sphere = new THREE.SphereGeometry(1.2, isMobile ? 32 : 64, isMobile ? 32 : 64);
     const octahedron = new THREE.OctahedronGeometry(1.3, 3);
 
     // Normalize vertex counts by using the torus knot as base
@@ -50,9 +53,9 @@ function MathManifold() {
   }, []);
 
   const geometry = useMemo(() => {
-    const geo = new THREE.TorusKnotGeometry(1, 0.35, 128, 32, 2, 3);
+    const geo = new THREE.TorusKnotGeometry(1, 0.35, segmentsX, segmentsY, 2, 3);
     return geo;
-  }, []);
+  }, [segmentsX, segmentsY]);
 
   // GSAP scroll binding
   useEffect(() => {
@@ -131,12 +134,10 @@ function MathManifold() {
     materialRef.current.metalness = 0.05 + t * 0.15;
     materialRef.current.roughness = 0.3 - t * 0.05;
     materialRef.current.transmission = 0.85 - t * 0.1;
-    materialRef.current.opacity = 0.12 + t * 0.08;
+    // Lowered opacity to improve contrast against dark text
+    materialRef.current.opacity = 0.05 + t * 0.05; 
 
-    // Update wireframe too
-    const wireGeo = wireRef.current.geometry as THREE.EdgesGeometry;
-    wireRef.current.geometry.dispose();
-    wireRef.current.geometry = new THREE.EdgesGeometry(geometry, 15);
+    // Wireframe geometry updates automatically with the main geometry
   });
 
   return (
@@ -145,24 +146,24 @@ function MathManifold() {
       <mesh ref={meshRef} geometry={geometry}>
         <meshPhysicalMaterial
           ref={materialRef}
-          color="#c8d4e8"
+          color="#d0def0"
           metalness={0.08}
-          roughness={0.3}
-          transmission={0.85}
+          roughness={0.4}
+          transmission={0.9}
           thickness={1.2}
           ior={1.4}
           envMapIntensity={0.5}
           clearcoat={0.6}
           clearcoatRoughness={0.2}
           transparent
-          opacity={0.15}
+          opacity={0.1}
         />
       </mesh>
 
       {/* Wireframe overlay */}
-      <lineSegments ref={wireRef} geometry={new THREE.EdgesGeometry(geometry, 15)}>
-        <lineBasicMaterial color="#1A56DB" transparent opacity={0.05} />
-      </lineSegments>
+      <mesh ref={wireRef} geometry={geometry} scale={1.002}>
+        <meshBasicMaterial color="#1A56DB" transparent opacity={0.05} wireframe />
+      </mesh>
     </group>
   );
 }
@@ -170,7 +171,9 @@ function MathManifold() {
 /* ─── Floating math particles ─── */
 function MathParticles() {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = 120;
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 6;
+  const count = isMobile ? 40 : 120;
 
   const { positions, sizes } = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -182,7 +185,7 @@ function MathParticles() {
       sz[i] = Math.random() * 2 + 0.5;
     }
     return { positions: pos, sizes: sz };
-  }, []);
+  }, [count]);
 
   useFrame((state) => {
     if (!pointsRef.current) return;
@@ -283,7 +286,10 @@ export default function ScrollCanvas3D() {
         }}
         style={{ background: "transparent" }}
       >
+        <AdaptiveDpr />
+        <AdaptiveEvents />
         <Suspense fallback={null}>
+          <Preload all />
           {/* Lighting */}
           <ambientLight intensity={0.4} />
           <directionalLight position={[5, 5, 5]} intensity={0.6} />
@@ -301,15 +307,6 @@ export default function ScrollCanvas3D() {
           <OrbitalRings />
           <MathParticles />
 
-          {/* Ground shadow */}
-          <ContactShadows
-            position={[0, -2.5, 0]}
-            opacity={0.15}
-            scale={10}
-            blur={2.5}
-            far={4}
-            color="#0D0D0D"
-          />
         </Suspense>
       </Canvas>
     </div>

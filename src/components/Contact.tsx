@@ -33,10 +33,6 @@ const Contact = () => (
       </AnimatedSection>
     </div>
 
-    {/* QED symbol */}
-    <div className="absolute bottom-6 right-8 font-academic text-6xl text-border select-none">
-      ∎
-    </div>
   </footer>
 );
 
