@@ -37,8 +37,12 @@ const Hero = () => (
           {/* Terminal links */}
           <AnimatedSection delay={0.3}>
             <div className="mt-8 flex gap-8">
-              <a href="#experience" className="terminal-link">./view_work</a>
-              <a href="#contact" className="terminal-link">./resume.pdf</a>
+              <button 
+                onClick={() => window.open('/resume.pdf', '_blank')}
+                className="terminal-link cursor-pointer bg-transparent border-none p-0 m-0"
+              >
+                ./resume.pdf
+              </button>
             </div>
           </AnimatedSection>
         </div>
