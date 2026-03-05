@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import Hero from "@/components/Hero";
 import Metrics from "@/components/Metrics";
 import Experience from "@/components/Experience";
@@ -8,17 +9,24 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import FloatingNav from "@/components/FloatingNav";
 
+const ScrollCanvas3D = lazy(() => import("@/components/ScrollCanvas3D"));
+
 const Index = () => (
-  <main className="bg-background" id="hero">
-    <FloatingNav />
-    <Hero />
-    <Metrics />
-    <Experience />
-    <div id="skills"><Skills /></div>
-    <div id="education"><Education /></div>
-    <Awards />
-    <Certifications />
-    <Contact />
+  <main className="bg-background relative" id="hero">
+    <Suspense fallback={null}>
+      <ScrollCanvas3D />
+    </Suspense>
+    <div className="relative" style={{ zIndex: 2 }}>
+      <FloatingNav />
+      <Hero />
+      <Metrics />
+      <Experience />
+      <div id="skills"><Skills /></div>
+      <div id="education"><Education /></div>
+      <Awards />
+      <Certifications />
+      <Contact />
+    </div>
   </main>
 );
 
