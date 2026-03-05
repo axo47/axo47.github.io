@@ -49,9 +49,6 @@ const Hero = () => (
 
         {/* Right — Photo with coordinate grid */}
         <AnimatedSection delay={0.25} className="relative flex justify-center md:justify-end pt-8 md:pt-16">
-          <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6">
-            <CoordinateGrid />
-          </div>
           <div className="relative border border-border p-1.5">
             <img
               src={profilePhoto}

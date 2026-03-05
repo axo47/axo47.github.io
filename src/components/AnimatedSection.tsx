@@ -39,7 +39,7 @@ const AnimatedSection = ({ children, className = "", delay = 0, stagger = false 
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         custom={delay}
-        className={`mix-blend-difference ${className}`}
+        className={className}
       >
         {children}
       </motion.div>
@@ -52,7 +52,7 @@ const AnimatedSection = ({ children, className = "", delay = 0, stagger = false 
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number], delay }}
-      className={`mix-blend-difference ${className}`}
+      className={className}
     >
       {children}
     </motion.div>
