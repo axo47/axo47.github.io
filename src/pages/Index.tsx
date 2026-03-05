@@ -8,11 +8,13 @@ import Awards from "@/components/Awards";
 import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import FloatingNav from "@/components/FloatingNav";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const ScrollCanvas3D = lazy(() => import("@/components/ScrollCanvas3D"));
 
 const Index = () => (
   <main className="bg-background relative" id="hero">
+    <SmoothScroll />
     <Suspense fallback={null}>
       <ScrollCanvas3D />
     </Suspense>

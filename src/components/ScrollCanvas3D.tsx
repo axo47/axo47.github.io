@@ -127,10 +127,11 @@ function MathManifold() {
     // Dynamic position — float up slightly as user scrolls
     groupRef.current.position.y = Math.sin(time * 0.3) * 0.1 + t * 0.3;
 
-    // Material evolution
-    materialRef.current.metalness = 0.1 + t * 0.4;
-    materialRef.current.roughness = 0.25 - t * 0.1;
-    materialRef.current.transmission = 0.6 - t * 0.3;
+    // Material evolution — keep ghost-like throughout
+    materialRef.current.metalness = 0.05 + t * 0.15;
+    materialRef.current.roughness = 0.3 - t * 0.05;
+    materialRef.current.transmission = 0.85 - t * 0.1;
+    materialRef.current.opacity = 0.12 + t * 0.08;
 
     // Update wireframe too
     const wireGeo = wireRef.current.geometry as THREE.EdgesGeometry;
@@ -140,27 +141,27 @@ function MathManifold() {
 
   return (
     <group ref={groupRef} scale={baseScale}>
-      {/* Main frosted glass mesh */}
+      {/* Main frosted glass mesh — ghost-like so text always pops */}
       <mesh ref={meshRef} geometry={geometry}>
         <meshPhysicalMaterial
           ref={materialRef}
-          color="#b8c6db"
-          metalness={0.15}
-          roughness={0.2}
-          transmission={0.6}
-          thickness={1.5}
-          ior={1.5}
-          envMapIntensity={0.8}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
+          color="#c8d4e8"
+          metalness={0.08}
+          roughness={0.3}
+          transmission={0.85}
+          thickness={1.2}
+          ior={1.4}
+          envMapIntensity={0.5}
+          clearcoat={0.6}
+          clearcoatRoughness={0.2}
           transparent
-          opacity={0.85}
+          opacity={0.15}
         />
       </mesh>
 
       {/* Wireframe overlay */}
       <lineSegments ref={wireRef} geometry={new THREE.EdgesGeometry(geometry, 15)}>
-        <lineBasicMaterial color="#1A56DB" transparent opacity={0.08} />
+        <lineBasicMaterial color="#1A56DB" transparent opacity={0.05} />
       </lineSegments>
     </group>
   );
