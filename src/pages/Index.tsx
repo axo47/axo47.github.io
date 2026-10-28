@@ -1,32 +1,28 @@
-import { lazy, Suspense } from "react";
-import Hero from "@/components/Hero";
-import Metrics from "@/components/Metrics";
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
-import Education from "@/components/Education";
-import Awards from "@/components/Awards";
-import Certifications from "@/components/Certifications";
-import Contact from "@/components/Contact";
-import FloatingNav from "@/components/FloatingNav";
-import SmoothScroll from "@/components/SmoothScroll";
-
-const ScrollCanvas3D = lazy(() => import("@/components/ScrollCanvas3D"));
+import { PaperBackground } from "@/components/portfolio/PaperBackground";
+import { TopBar } from "@/components/portfolio/TopBar";
+import { SectionNav } from "@/components/portfolio/SectionNav";
+import { Hero } from "@/components/portfolio/Hero";
+import { Intersection } from "@/components/portfolio/Intersection";
+import { Research } from "@/components/portfolio/Research";
+import { Experience } from "@/components/portfolio/Experience";
+import { Skills } from "@/components/portfolio/Skills";
+import { Education } from "@/components/portfolio/Education";
+import { Awards } from "@/components/portfolio/Awards";
+import { Contact } from "@/components/portfolio/Contact";
 
 const Index = () => (
-  <main className="bg-background relative" id="hero">
-    <SmoothScroll />
-    <Suspense fallback={null}>
-      <ScrollCanvas3D />
-    </Suspense>
-    <div className="relative" style={{ zIndex: 2 }}>
-      <FloatingNav />
+  <main className="relative min-h-screen overflow-x-clip bg-background">
+    <PaperBackground />
+    <TopBar />
+    <SectionNav />
+    <div className="relative z-10">
       <Hero />
-      <Metrics />
+      <Intersection />
+      <Education />
+      <Research />
       <Experience />
-      <div id="skills"><Skills /></div>
-      <div id="education"><Education /></div>
+      <Skills />
       <Awards />
-      <Certifications />
       <Contact />
     </div>
   </main>
